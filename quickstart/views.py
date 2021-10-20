@@ -1,36 +1,24 @@
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
-from quickstart.serializers import UserSerializer, GroupSerializer, BookSerializer
+from django.shortcuts import render
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from .models import Book
+from quickstart.serializers import BookSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-        API endpoint allow users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permissions_class = [permissions.IsAuthenticated]
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-        API endpoint allow Groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permissions_class = [permissions.IsAuthenticated]
-
-
-class BookViewSet(viewsets.ModelViewSet):
-
+class ListBookAPIView(ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permissions_class = [permissions.IsAuthenticated]
 
 
-class CreateBook(viewsets.ModelViewSet):
+class CreateBookAPIView(CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permissions_class = [permissions.IsAuthenticated]
+
+
+class UpdateBookAPIView(UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+
+class DeleteAPIView(DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
